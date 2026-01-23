@@ -1,13 +1,91 @@
+[project]
+name = "nvda-stock-analyzer"
+version = "2.0.0"
+description = "Professional quantitative analysis toolkit for stock market visualization and analysis"
+authors = [
+    { name = "Parth Chaudhari" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = [
+    "stock",
+    "finance",
+    "analysis",
+    "visualization",
+    "quantitative",
+    "trading",
+    "technical-analysis",
+    "NVDA",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Developers",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "matplotlib>=3.7.0",
+    "yfinance>=0.2.30",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "plotly>=5.18.0",
+    "openpyxl>=3.1.0",
+    "rich>=13.0.0",
+    "click>=8.1.0",
+    "pyarrow>=14.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.0",
+    "black>=23.0.0",
+    "mypy>=1.5.0",
+]
+
+[project.scripts]
+nvda-analyzer = "src.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/parthchaudhari9016/nvda-stock-visualizer"
+Repository = "https://github.com/parthchaudhari9016/nvda-stock-visualizer"
+Issues = "https://github.com/parthchaudhari9016/nvda-stock-visualizer/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
 [tool.pytest.ini_options]
-addopts = "-q"
+addopts = "-q --cov=src --cov-report=term-missing"
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 100
 target-version = "py310"
 
 [tool.ruff.lint]
-select = ["E", "F", "I"]
+select = ["E", "F", "I", "W", "B", "SIM"]
+ignore = ["E501"]
 
 [tool.black]
 line-length = 100
+target-version = ["py310"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
